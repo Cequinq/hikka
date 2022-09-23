@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Button, Container, Divider, Link, Typography } from '@mui/material';
+import { Button, Container, Divider, Typography, Link } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import pp from '../assets/temp-pp.png';
 import berserk from '../assets/berserk.png';
 
@@ -12,20 +13,19 @@ interface Props {
 const Navigation: FC<Props> = ({ className }) => {
     return (
         <Container className={className}>
-            <Grid container spacing={6} justifyContent="space-between" alignItems="center">
-                <Grid xs={3} md={3}>
-                    <Link underline="none" variant="title">
+            <Grid container spacing={8} justifyContent="space-between" alignItems="center">
+                <Grid xs="auto" md="auto">
+                    <Link component={RouterLink} to="/" underline="none" variant="title">
                         hikka.
                     </Link>
-                    {/* todo change to Autocomplete */}
                 </Grid>
                 <Grid xs="auto" md="auto">
                     <input className="input" />
                 </Grid>
-                <Grid container spacing={3}>
+                <Grid xs md container spacing={3} alignItems="center">
                     <Grid xs md>
                         <Link color="primary.dark" underline="none">
-                            Головне ’22
+                            Головне
                         </Link>
                     </Grid>
                     <Grid xs md>
@@ -45,11 +45,11 @@ const Navigation: FC<Props> = ({ className }) => {
                     </Grid>
                     <Grid xs md>
                         <Link color="primary.dark" underline="none">
-                            Ранобе
+                            Вовасін
                         </Link>
                     </Grid>
                 </Grid>
-                <Grid xs={1} md={1}>
+                <Grid xs="auto" md="auto">
                     <img src={pp} alt="Profile Picture" />
                 </Grid>
             </Grid>

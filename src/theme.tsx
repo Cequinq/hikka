@@ -89,10 +89,15 @@ const theme = createTheme({
             fontWeight: 500,
             fontSize: '5rem', //80px
         },
+        h2: {
+            fontFamily: "'Montserrat', serif",
+            fontWeight: 700,
+            fontSize: '1.5rem', //24px
+        },
         title: {
             fontFamily: 'Montserrat',
             fontWeight: 900,
-            fontSize: '4rem', //32px
+            fontSize: '2rem', //32px
         },
     },
     palette: {
