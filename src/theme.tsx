@@ -16,6 +16,12 @@ declare module '@mui/material/Typography' {
     }
 }
 
+declare module '@mui/material/Card' {
+    interface CardPropsVariantOverrides {
+        noLeftPadding: true;
+    }
+}
+
 declare module '@mui/material/styles' {
     interface Theme {
         card: {
@@ -64,6 +70,9 @@ declare module '@mui/material/styles' {
         title?: CSSProperties;
         h7?: CSSProperties;
     }
+    interface CardPropsVariantOverrides {
+        noLeftPadding?: CSSProperties;
+    }
 }
 
 const theme = createTheme({
@@ -94,6 +103,16 @@ const theme = createTheme({
             fontWeight: 700,
             fontSize: '1.5rem', //24px
         },
+        h3: {
+            fontFamily: "'Montserrat', serif",
+            fontWeight: 600,
+            fontSize: '1.5rem', //24px
+        },
+        subtitle2: {
+            fontFamily: "'Montserrat', serif",
+            fontWeight: 700,
+            fontSize: '0.875rem', //14px
+        },
         title: {
             fontFamily: 'Montserrat',
             fontWeight: 900,
@@ -123,5 +142,14 @@ const theme = createTheme({
         },
     },
 });
+
+theme.components = {
+    ...theme.components,
+    MuiGrid2: {
+        defaultProps: {
+            disableEqualOverflow: false,
+        },
+    },
+};
 
 export default theme;
