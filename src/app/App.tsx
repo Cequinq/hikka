@@ -5,7 +5,7 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
 import Navigation from './Navigation';
 import { Routes, Route } from 'react-router-dom';
-import Home from './Home';
+import { Home } from '../pages';
 
 const App = () => {
     return (
