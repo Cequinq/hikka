@@ -2,8 +2,7 @@ import styled from 'styled-components';
 import { FC } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography } from '@mui/material';
-import { HighlightCard } from '../components';
-import berserk from '../../../assets/berserk.png';
+import { HighlightCard, NewsCard } from '../components';
 
 interface Props {
     className?: string;
@@ -13,7 +12,7 @@ const MainBar: FC<Props> = ({ className }) => {
     return (
         <Grid container xs={12} md={9} direction="column" className={className}>
             <Grid md={12}>
-                <Typography variant="h2" color="primary.dark" className="title">
+                <Typography variant="h3" color="primary.dark" className="title">
                     Найголовніше цього тижня:
                 </Typography>
             </Grid>
@@ -30,21 +29,17 @@ const MainBar: FC<Props> = ({ className }) => {
                 <HighlightCard />
             </Grid>
             <Grid md={12}>
-                <Typography variant="h2" color="primary.dark" className="title">
+                <Typography variant="h3" color="primary.dark" className="title">
                     Найголовніше цього тижня:
                 </Typography>
             </Grid>
-            <Grid container justifyContent="space-between" spacing={3}>
-                <Grid xs md>
-                    <div className="side-action">
-                        <img src={berserk} alt="pp" className="side-pic" />
-                        <Typography>Берсерк: Золоте століття</Typography>
-                    </div>
-                </Grid>
-                <Grid xs md={3}>
-                    <Typography>6 хвилин назад</Typography>
-                </Grid>
-            </Grid>
+            <NewsCard
+                title="Подборка малоизвестных сюжетных игр с открытым миром для слабых ПК и ноутбуков"
+                content="Индустрии видеоигр уже много лет, и за прошедшие годы вышло множество потрясающих проектов, которые по той или иной причине вы могли пропустить.
+            "
+                animeTitle="Berserk"
+                time={18}
+            />
         </Grid>
     );
 };

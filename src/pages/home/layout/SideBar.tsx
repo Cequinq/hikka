@@ -12,7 +12,7 @@ const SideBar: FC<Props> = ({ className }) => {
     return (
         <Grid container spacing={6} xs={12} md direction="column" justifyContent="flex-start" className={className}>
             <Grid xs md={12}>
-                <Typography variant="h3" color="primary.dark" className="side-bar-title">
+                <Typography variant="h4" color="primary.dark" className="side-bar-title">
                     Оновлення на сайті:
                 </Typography>
             </Grid>
