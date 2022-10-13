@@ -1,57 +1,72 @@
 import { FC } from 'react';
-import { Typography } from '@mui/material';
-import berserk from '../../../assets/berserk.png';
-import newsPic from '../../../assets/news-pic.png';
+import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import styled from 'styled-components';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import localeUa from 'dayjs/locale/uk';
+
+dayjs.extend(relativeTime);
 
 interface Props {
     className?: string;
-    animeTitle: string;
-    time: number;
+    user: Hikka.User;
+    date: number;
     title: string;
     content: string;
+    cover: string;
 }
 
-const NewsCard: FC<Props> = ({ className, animeTitle, time, title, content }) => {
+const NewsCard: FC<Props> = ({ className, user, date, title, content }) => {
     return (
-        <Grid container justifyContent="space-between" spacing={3} className={className}>
-            <Grid container xs md alignItems="center" justifyContent="space-between">
+        <div className={className}>
+            <Grid container xs md alignItems="center" padding={0} spacing={1} justifyContent="space-between">
+                <Grid xs="auto" md="auto">
+                    <img src={user.avatar} alt="pp" />
+                </Grid>
                 <Grid xs md>
-                    <div className="anime-title-wrapper">
-                        <img src={berserk} alt="pp" className="anime-title-pic" />
-                        <Typography color="primary.dark">{animeTitle}</Typography>
-                    </div>
+                    <Typography color="textSecondary">{user.username}</Typography>
                 </Grid>
-                <Grid xs md={3}>
-                    <Typography color="primary.dark">{time}</Typography>
-                </Grid>
-                <Grid xs md={12}>
-                    <Typography variant="h2" className="news-title">
-                        {title}
+                <Grid xs md="auto">
+                    <Typography color="textSecondary" align="right">
+                        {dayjs(date).locale(localeUa).fromNow()}
                     </Typography>
-                    <Typography color="primary.dark">{content}</Typography>
-                    <img src={newsPic} alt="pp" className="news-pic" />
                 </Grid>
             </Grid>
-        </Grid>
+            <Typography variant="h2" marginTop={3} className="title">
+                {title}
+            </Typography>
+            <Typography color="textSecondary" marginTop={3}>
+                {content}
+            </Typography>
+            <Box marginTop={3} height={326} width="100%" className="cover" />
+        </div>
     );
 };
 
 export default styled(NewsCard)`
-    .anime-title-wrapper {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
+    .cover {
+        background: url(${({ cover }) => cover});
+        background-size: cover;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        transition: background-size 0.2s;
     }
-    .anime-title-pic {
-        margin-right: 8px;
+
+    .title {
+        transition: color 0.2s;
     }
-    .news-title {
-        margin-top: 20px;
-        margin-bottom: 24px;
-    }
-    .news-pic {
-        margin-top: 24px;
+
+    &:hover {
+        cursor: pointer;
+
+        .cover {
+            background-size: 120% 120%;
+        }
+
+        .title {
+            color: ${({ theme }) => theme.palette.primary.main};
+        }
     }
 `;
