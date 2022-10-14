@@ -1,5 +1,4 @@
-import HighlightCard from './HighlightCard';
-import UpdateCard from './UpdateCard';
+import UpdateCard from '../../../components/updates/components/UpdateCard';
 import NewsCard from './NewsCard';
 
-export { HighlightCard, UpdateCard, NewsCard };
+export { UpdateCard, NewsCard };

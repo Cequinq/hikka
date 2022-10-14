@@ -16,7 +16,14 @@ const Navigation: FC<Props> = ({ className }) => {
             <Container>
                 <Grid container spacing={8} justifyContent="space-between" alignItems="center">
                     <Grid xs="auto" md="auto">
-                        <Link component={RouterLink} to="/" underline="none" variant="title">
+                        <Link
+                            component={RouterLink}
+                            to="/"
+                            underline="none"
+                            fontWeight={900}
+                            fontSize="2rem"
+                            fontFamily="Montserrat"
+                        >
                             hikka.
                         </Link>
                     </Grid>
@@ -25,27 +32,27 @@ const Navigation: FC<Props> = ({ className }) => {
                     </Grid>
                     <Grid xs md container spacing={3} alignItems="center">
                         <Grid xs md>
-                            <Link color="primary.dark" underline="none">
+                            <Link color="textSecondary" underline="none">
                                 Головне
                             </Link>
                         </Grid>
                         <Grid xs md>
-                            <Link color="primary.dark" underline="none">
+                            <Link color="textSecondary" underline="none">
                                 Аніме
                             </Link>
                         </Grid>
                         <Grid xs md>
-                            <Link color="primary.dark" underline="none">
+                            <Link color="textSecondary" underline="none">
                                 Манга
                             </Link>
                         </Grid>
                         <Grid xs md>
-                            <Link color="primary.dark" underline="none">
+                            <Link color="textSecondary" underline="none">
                                 Ранобе
                             </Link>
                         </Grid>
                         <Grid xs md>
-                            <Link color="primary.dark" underline="none">
+                            <Link color="textSecondary" underline="none">
                                 Вовасін
                             </Link>
                         </Grid>
@@ -64,7 +71,12 @@ const Navigation: FC<Props> = ({ className }) => {
                     <Grid xs="auto" md="auto">
                         <Button className="button-recommendation">
                             <img src={berserk} alt="pp" />
-                            <Link variant="body1" className="text-recommendation" color="primary.dark" underline="none">
+                            <Link
+                                variant="body1"
+                                className="text-recommendation"
+                                color="textSecondary"
+                                underline="none"
+                            >
                                 Берсерк: Золоте століття
                             </Link>
                         </Button>
@@ -72,7 +84,12 @@ const Navigation: FC<Props> = ({ className }) => {
                     <Grid xs="auto" md="auto">
                         <Button className="button-recommendation">
                             <img src={berserk} alt="pp" />
-                            <Link variant="body1" className="text-recommendation" color="primary.dark" underline="none">
+                            <Link
+                                variant="body1"
+                                className="text-recommendation"
+                                color="textSecondary"
+                                underline="none"
+                            >
                                 Берсерк: Золоте століття
                             </Link>
                         </Button>
@@ -80,7 +97,12 @@ const Navigation: FC<Props> = ({ className }) => {
                     <Grid xs="auto" md="auto">
                         <Button className="button-recommendation">
                             <img src={berserk} alt="pp" />
-                            <Link variant="body1" className="text-recommendation" color="primary.dark" underline="none">
+                            <Link
+                                variant="body1"
+                                className="text-recommendation"
+                                color="textSecondary"
+                                underline="none"
+                            >
                                 Берсерк: Золоте століття
                             </Link>
                         </Button>
@@ -88,7 +110,12 @@ const Navigation: FC<Props> = ({ className }) => {
                     <Grid xs="auto" md="auto">
                         <Button className="button-recommendation">
                             <img src={berserk} alt="pp" />
-                            <Link variant="body1" className="text-recommendation" color="primary.dark" underline="none">
+                            <Link
+                                variant="body1"
+                                className="text-recommendation"
+                                color="textSecondary"
+                                underline="none"
+                            >
                                 Берсерк
                             </Link>
                         </Button>
@@ -96,7 +123,12 @@ const Navigation: FC<Props> = ({ className }) => {
                     <Grid xs="auto" md="auto">
                         <Button className="button-recommendation">
                             <img src={berserk} alt="pp" />
-                            <Link variant="body1" className="text-recommendation" color="primary.dark" underline="none">
+                            <Link
+                                variant="body1"
+                                className="text-recommendation"
+                                color="textSecondary"
+                                underline="none"
+                            >
                                 Берсерк
                             </Link>
                         </Button>

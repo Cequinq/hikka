@@ -1,4 +1,4 @@
-import MainBar from './MainBar';
-import SideBar from './SideBar';
+import Ongoings from './Ongoings';
+import News from './News';
 
-export { MainBar, SideBar };
+export { Ongoings, News };

@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Container } from '@mui/material';
+import { Container, Divider } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { MainBar, SideBar } from './layout';
+import { News, Ongoings } from './layout';
+import { Updates } from '../../components';
 
 interface Props {
     className?: string;
@@ -11,9 +12,17 @@ interface Props {
 const Home: FC<Props> = ({ className }) => {
     return (
         <Container className={className}>
-            <Grid container rowSpacing={3} columnSpacing={3} justifyContent="space-between">
-                <MainBar />
-                <SideBar />
+            <Grid container columnSpacing={6} columns={16} rowSpacing={0} padding={0} justifyContent="space-between">
+                <Grid xs={16} md={11}>
+                    <Ongoings />
+                    <News />
+                </Grid>
+                <Grid xs={0} md="auto" display={{ xs: 'none', md: 'block' }}>
+                    <Divider orientation="vertical" />
+                </Grid>
+                <Grid xs={16} md>
+                    <Updates />
+                </Grid>
             </Grid>
         </Container>
     );
