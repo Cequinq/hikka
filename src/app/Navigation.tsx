@@ -38,11 +38,11 @@ const Navigation: FC<Props> = ({ className }) => {
                             hikka.
                         </Link>
                     </Grid>
-                    <Grid xs="auto" md={6}>
+                    <Grid xs="auto" md={5} display="flex">
                         <Paper className="search">
                             <InputBase
-                                placeholder="Пошук по хіцці"
                                 fullWidth
+                                placeholder="Пошук по хіцці"
                                 endAdornment={
                                     <InputAdornment position="start">
                                         <IconButton edge="end">
@@ -167,18 +167,15 @@ export default styled(Navigation)`
     margin-top: 15px;
 
     .search {
-        display: flex;
-        // padding: ${({ theme }) => theme.spacing(1)};
-        // align-items: center;
+        padding: ${({ theme }) => theme.spacing(1, 2)};
         height: 58px;
-        //width: 100px;
+        width: 150px;
+        transition: all 0.3s;
+        display: flex;
+        border-radius: 10px;
 
-        input {
-            width: 100px;
-            transition: all 0.3s;
-            &:focus {
-                width: 100%;
-            }
+        &:focus-within {
+            width: 100%;
         }
     }
 
