@@ -1,10 +1,21 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Button, Container, Divider, Link, Typography } from '@mui/material';
+import {
+    Button,
+    Container,
+    Divider,
+    IconButton,
+    InputAdornment,
+    InputBase,
+    Link,
+    Paper,
+    Typography,
+} from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import pp from '../assets/temp-pp.png';
 import berserk from '../assets/berserk.png';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface Props {
     className?: string;
@@ -27,8 +38,20 @@ const Navigation: FC<Props> = ({ className }) => {
                             hikka.
                         </Link>
                     </Grid>
-                    <Grid xs="auto" md="auto">
-                        <input className="input" />
+                    <Grid xs="auto" md={6}>
+                        <Paper className="search">
+                            <InputBase
+                                placeholder="Пошук по хіцці"
+                                fullWidth
+                                endAdornment={
+                                    <InputAdornment position="start">
+                                        <IconButton edge="end">
+                                            <SearchIcon color="inherit" />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </Paper>
                     </Grid>
                     <Grid xs md container spacing={3} alignItems="center">
                         <Grid xs md>
@@ -143,8 +166,20 @@ const Navigation: FC<Props> = ({ className }) => {
 export default styled(Navigation)`
     margin-top: 15px;
 
-    .input {
-        width: 300px;
+    .search {
+        display: flex;
+        // padding: ${({ theme }) => theme.spacing(1)};
+        // align-items: center;
+        height: 58px;
+        //width: 100px;
+
+        input {
+            width: 100px;
+            transition: all 0.3s;
+            &:focus {
+                width: 100%;
+            }
+        }
     }
 
     .divider {
