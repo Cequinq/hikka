@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Button, Container, Divider, Link, Typography } from '@mui/material';
+import { AppBar, Container, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import pp from '../assets/temp-pp.png';
-import berserk from '../assets/berserk.png';
 
 interface Props {
     className?: string;
@@ -12,10 +11,10 @@ interface Props {
 
 const Navigation: FC<Props> = ({ className }) => {
     return (
-        <div className={className}>
+        <AppBar className={className} color="transparent" elevation={0} position="fixed">
             <Container>
-                <Grid container spacing={8} justifyContent="space-between" alignItems="center">
-                    <Grid xs="auto" md="auto">
+                <Grid container columnSpacing={8} padding={0} justifyContent="space-between" alignItems="center">
+                    <Grid xs md>
                         <Link
                             component={RouterLink}
                             to="/"
@@ -26,9 +25,6 @@ const Navigation: FC<Props> = ({ className }) => {
                         >
                             hikka.
                         </Link>
-                    </Grid>
-                    <Grid xs="auto" md="auto">
-                        <input className="input" />
                     </Grid>
                     <Grid xs md container spacing={3} alignItems="center">
                         <Grid xs md>
@@ -62,94 +58,23 @@ const Navigation: FC<Props> = ({ className }) => {
                     </Grid>
                 </Grid>
             </Container>
-            <Divider className="divider" variant="fullWidth" />
-            <Container>
-                <Grid container spacing={1} justifyContent="space-between" alignItems="center">
-                    <Grid xs={1} md={1}>
-                        <Typography>Теми дня:</Typography>
-                    </Grid>
-                    <Grid xs="auto" md="auto">
-                        <Button className="button-recommendation">
-                            <img src={berserk} alt="pp" />
-                            <Link
-                                variant="body1"
-                                className="text-recommendation"
-                                color="textSecondary"
-                                underline="none"
-                            >
-                                Берсерк: Золоте століття
-                            </Link>
-                        </Button>
-                    </Grid>
-                    <Grid xs="auto" md="auto">
-                        <Button className="button-recommendation">
-                            <img src={berserk} alt="pp" />
-                            <Link
-                                variant="body1"
-                                className="text-recommendation"
-                                color="textSecondary"
-                                underline="none"
-                            >
-                                Берсерк: Золоте століття
-                            </Link>
-                        </Button>
-                    </Grid>
-                    <Grid xs="auto" md="auto">
-                        <Button className="button-recommendation">
-                            <img src={berserk} alt="pp" />
-                            <Link
-                                variant="body1"
-                                className="text-recommendation"
-                                color="textSecondary"
-                                underline="none"
-                            >
-                                Берсерк: Золоте століття
-                            </Link>
-                        </Button>
-                    </Grid>
-                    <Grid xs="auto" md="auto">
-                        <Button className="button-recommendation">
-                            <img src={berserk} alt="pp" />
-                            <Link
-                                variant="body1"
-                                className="text-recommendation"
-                                color="textSecondary"
-                                underline="none"
-                            >
-                                Берсерк
-                            </Link>
-                        </Button>
-                    </Grid>
-                    <Grid xs="auto" md="auto">
-                        <Button className="button-recommendation">
-                            <img src={berserk} alt="pp" />
-                            <Link
-                                variant="body1"
-                                className="text-recommendation"
-                                color="textSecondary"
-                                underline="none"
-                            >
-                                Берсерк
-                            </Link>
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Container>
-            <Divider className="divider" variant="fullWidth" />
-        </div>
+        </AppBar>
     );
 };
 
 export default styled(Navigation)`
-    margin-top: 15px;
+    height: 80px;
+    border-bottom: 1px solid #292929;
+    justify-content: center;
+    backdrop-filter: blur(20px);
+    background-color: rgba(10, 25, 41, 0.7);
 
-    .input {
-        width: 300px;
-    }
-
-    .divider {
-        background: #292929;
-        margin: 16px 0 16px 0;
+    .search {
+        padding: ${({ theme }) => theme.spacing(1, 2)};
+        height: 58px;
+        transition: all 0.3s;
+        display: flex;
+        border-radius: 10px;
     }
 
     .button-recommendation {

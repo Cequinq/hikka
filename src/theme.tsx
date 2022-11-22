@@ -67,7 +67,6 @@ const theme = createTheme({
             fontWeight: 600,
             fontSize: '1.5rem', //24px
         },
-        body1: {},
         subtitle2: {
             fontFamily: "'Montserrat', serif",
             fontWeight: 700,
@@ -76,9 +75,6 @@ const theme = createTheme({
     },
     palette: {
         mode: 'dark',
-        primary: {
-            main: '#FFC700',
-        },
         // secondary: {
         //     main: '#06032d',
         //     dark: '#0a063e',
@@ -100,6 +96,21 @@ theme.components = {
     MuiGrid2: {
         defaultProps: {
             disableEqualOverflow: false,
+        },
+    },
+    MuiOutlinedInput: {
+        styleOverrides: {
+            root: {
+                background: theme.palette.background.paper,
+                borderRadius: 10,
+            },
+        },
+    },
+    MuiChip: {
+        styleOverrides: {
+            root: {
+                borderRadius: 6,
+            },
         },
     },
 };

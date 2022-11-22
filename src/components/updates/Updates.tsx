@@ -10,7 +10,7 @@ interface Props {
 
 const Component: FC<Props> = ({ className }) => {
     return (
-        <Box className={className} position="sticky" top="1rem" paddingTop={4}>
+        <Box className={className} position="sticky" top={0} paddingTop={4}>
             <Typography variant="h4" marginBottom={4} color="textSecondary">
                 Оновлення на сайті:
             </Typography>
