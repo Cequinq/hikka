@@ -1,88 +1,103 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Autocomplete, Box, Chip, Slider, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import { useRouter } from 'next/router';
 
 interface Props {
     className?: string;
 }
 
-type Type = {
+type Filter<T> = {
     title: string;
+    slug: T;
 };
 
-type Status = {
-    title: string;
-};
-
-type Season = {
-    title: string;
-};
-
-type AgeRating = {
-    title: string;
-};
-
-const types: Type[] = [
+const types: Filter<Hikka.Release>[] = [
     {
         title: 'Серіал',
+        slug: 'tv',
     },
     {
         title: 'Фільм',
+        slug: 'movie',
     },
     {
         title: 'OVA',
+        slug: 'ova',
     },
     {
         title: 'ONA',
+        slug: 'ona',
+    },
+    {
+        title: 'Спешл',
+        slug: 'special',
+    },
+    {
+        title: 'Кліп',
+        slug: 'music',
     },
 ];
 
-const statuses: Status[] = [
+const statuses: Filter<Hikka.Status>[] = [
     {
         title: 'Онґоінґ',
+        slug: 'airing',
     },
     {
         title: 'Анонс',
+        slug: 'not_yet',
     },
     {
         title: 'Реліз',
+        slug: 'finished',
     },
 ];
 
-const seasons: Season[] = [
+const seasons: Filter<Hikka.Season>[] = [
     {
         title: 'Осінь',
+        slug: 'fall',
     },
     {
         title: 'Зима',
+        slug: 'winter',
     },
     {
         title: 'Весна',
+        slug: 'spring',
     },
     {
         title: 'Літо',
+        slug: 'summer',
     },
 ];
 
-const ageRatings: AgeRating[] = [
+const ageRatings: Filter<Hikka.AgeRating>[] = [
     {
         title: 'G',
+        slug: 'g',
     },
     {
         title: 'PG',
+        slug: 'pg',
     },
     {
         title: 'PG-13',
+        slug: 'pg_13',
     },
     {
         title: 'R',
+        slug: 'r',
     },
     {
         title: 'R PLUS',
+        slug: 'r_plus',
     },
     {
         title: 'RX',
+        slug: 'rx',
     },
 ];
 
@@ -214,58 +229,117 @@ const top100Films = [
 ];
 
 const Component: FC<Props> = ({ className }) => {
-    const [selectedStatuses, setSelectedStatuses] = useState<Status[]>([]);
-    const [selectedTypes, setSelectedTypes] = useState<Type[]>([]);
-    const [selectedSeasons, setSelectedSeasons] = useState<Season[]>([]);
-    const [selectedAgeRatings, setSelectedAgeRatings] = useState<AgeRating[]>([]);
+    const [selectedStatuses, setSelectedStatuses] = useState<Hikka.Status[]>([]);
+    const [selectedTypes, setSelectedTypes] = useState<Hikka.Release[]>([]);
+    const [selectedSeasons, setSelectedSeasons] = useState<Hikka.Season[]>([]);
+    const [selectedAgeRatings, setSelectedAgeRatings] = useState<Hikka.AgeRating[]>([]);
+    const router = useRouter();
 
-    const switchStatus = (status: Status) => {
-        setSelectedStatuses((prev) => {
-            const newSelected = prev.filter((t) => t.title !== status.title);
+    const switchStatus = (status: Filter<Hikka.Status>) => {
+        const newSelected = selectedStatuses.filter((t) => t !== status.slug);
 
-            if (newSelected.length === prev.length) {
-                return [...prev, status];
-            }
-
-            return newSelected;
-        });
+        if (newSelected.length === selectedStatuses.length) {
+            router.replace({
+                query: {
+                    ...router.query,
+                    status: [...selectedStatuses, status.slug].join(','),
+                },
+            });
+        } else {
+            router.replace({
+                query: {
+                    ...router.query,
+                    status: newSelected.join(','),
+                },
+            });
+        }
     };
 
-    const switchType = (type: Type) => {
-        setSelectedTypes((prev) => {
-            const newSelected = prev.filter((t) => t.title !== type.title);
+    const switchType = (type: Filter<Hikka.Release>) => {
+        const newSelected = selectedTypes.filter((t) => t !== type.slug);
 
-            if (newSelected.length === prev.length) {
-                return [...prev, type];
-            }
-
-            return newSelected;
-        });
+        if (newSelected.length === selectedTypes.length) {
+            router.replace({
+                query: {
+                    ...router.query,
+                    release: [...selectedTypes, type.slug].join(','),
+                },
+            });
+        } else {
+            router.replace({
+                query: {
+                    ...router.query,
+                    release: newSelected.join(','),
+                },
+            });
+        }
     };
 
-    const switchSeason = (season: Season) => {
-        setSelectedSeasons((prev) => {
-            const newSelected = prev.filter((t) => t.title !== season.title);
+    const switchSeason = (season: Filter<Hikka.Season>) => {
+        const newSelected = selectedSeasons.filter((t) => t !== season.slug);
 
-            if (newSelected.length === prev.length) {
-                return [...prev, season];
-            }
-
-            return newSelected;
-        });
+        if (newSelected.length === selectedSeasons.length) {
+            router.replace({
+                query: {
+                    ...router.query,
+                    season: [...selectedSeasons, season.slug].join(','),
+                },
+            });
+        } else {
+            router.replace({
+                query: {
+                    ...router.query,
+                    season: newSelected.join(','),
+                },
+            });
+        }
     };
 
-    const switchAgeRatings = (ageRating: AgeRating) => {
-        setSelectedAgeRatings((prev) => {
-            const newSelected = prev.filter((t) => t.title !== ageRating.title);
+    const switchAgeRatings = (ageRating: Filter<Hikka.AgeRating>) => {
+        const newSelected = selectedAgeRatings.filter((t) => t !== ageRating.slug);
 
-            if (newSelected.length === prev.length) {
-                return [...prev, ageRating];
-            }
-
-            return newSelected;
-        });
+        if (newSelected.length === selectedAgeRatings.length) {
+            router.replace({
+                query: {
+                    ...router.query,
+                    rating: [...selectedAgeRatings, ageRating.slug].join(','),
+                },
+            });
+        } else {
+            router.replace({
+                query: {
+                    ...router.query,
+                    rating: newSelected.join(','),
+                },
+            });
+        }
     };
+
+    useEffect(() => {
+        if (router.query?.rating) {
+            setSelectedAgeRatings((router.query.rating as string).split(',') as Hikka.AgeRating[]);
+        } else {
+            setSelectedAgeRatings([]);
+        }
+
+        if (router.query?.season) {
+            setSelectedSeasons((router.query.season as string).split(',') as Hikka.Season[]);
+        } else {
+            setSelectedSeasons([]);
+        }
+
+        if (router.query?.release) {
+            setSelectedTypes((router.query.release as string).split(',') as Hikka.Release[]);
+        } else {
+            setSelectedTypes([]);
+        }
+
+        if (router.query?.status) {
+            setSelectedStatuses((router.query.status as string).split(',') as Hikka.Status[]);
+        } else {
+            setSelectedStatuses([]);
+        }
+    }, [router.query]);
 
     return (
         <Box className={className} position="sticky" top="80px" height="100vh">
@@ -300,12 +374,10 @@ const Component: FC<Props> = ({ className }) => {
                     </Typography>
                     <Grid container padding={0} spacing={1}>
                         {statuses.map((s) => (
-                            <Grid xs="auto" sm="auto" md="auto" key={s.title}>
+                            <Grid xs="auto" sm="auto" md="auto" key={s.slug}>
                                 <Chip
                                     onClick={() => switchStatus(s)}
-                                    variant={
-                                        selectedStatuses.some((ss) => ss.title === s.title) ? 'filled' : 'outlined'
-                                    }
+                                    variant={selectedStatuses.some((ss) => ss === s.slug) ? 'filled' : 'outlined'}
                                     label={s.title}
                                 />
                             </Grid>
@@ -318,10 +390,10 @@ const Component: FC<Props> = ({ className }) => {
                     </Typography>
                     <Grid container padding={0} spacing={1}>
                         {types.map((t) => (
-                            <Grid xs="auto" sm="auto" md="auto" key={t.title}>
+                            <Grid xs="auto" sm="auto" md="auto" key={t.slug}>
                                 <Chip
                                     onClick={() => switchType(t)}
-                                    variant={selectedTypes.some((st) => st.title === t.title) ? 'filled' : 'outlined'}
+                                    variant={selectedTypes.some((st) => st === t.slug) ? 'filled' : 'outlined'}
                                     label={t.title}
                                 />
                             </Grid>
@@ -334,10 +406,10 @@ const Component: FC<Props> = ({ className }) => {
                     </Typography>
                     <Grid container padding={0} spacing={1}>
                         {seasons.map((s) => (
-                            <Grid xs="auto" sm="auto" md="auto" key={s.title}>
+                            <Grid xs="auto" sm="auto" md="auto" key={s.slug}>
                                 <Chip
                                     onClick={() => switchSeason(s)}
-                                    variant={selectedSeasons.some((ss) => ss.title === s.title) ? 'filled' : 'outlined'}
+                                    variant={selectedSeasons.some((ss) => ss === s.slug) ? 'filled' : 'outlined'}
                                     label={s.title}
                                 />
                             </Grid>
@@ -350,12 +422,10 @@ const Component: FC<Props> = ({ className }) => {
                     </Typography>
                     <Grid container padding={0} spacing={1}>
                         {ageRatings.map((r) => (
-                            <Grid xs="auto" sm="auto" md="auto" key={r.title}>
+                            <Grid xs="auto" sm="auto" md="auto" key={r.slug}>
                                 <Chip
                                     onClick={() => switchAgeRatings(r)}
-                                    variant={
-                                        selectedAgeRatings.some((sr) => sr.title === r.title) ? 'filled' : 'outlined'
-                                    }
+                                    variant={selectedAgeRatings.some((sr) => sr === r.slug) ? 'filled' : 'outlined'}
                                     label={r.title}
                                 />
                             </Grid>

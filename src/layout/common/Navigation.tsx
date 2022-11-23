@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import Grid from '@mui/material/Unstable_Grid2';
 import { AppBar, Container, Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import pp from '../assets/temp-pp.png';
+import NextLink from 'next/link';
+import pp from '../../../public/images/temp-pp.png';
 
 interface Props {
     className?: string;
@@ -11,13 +11,13 @@ interface Props {
 
 const Navigation: FC<Props> = ({ className }) => {
     return (
-        <AppBar className={className} color="transparent" elevation={0} position="fixed">
+        <AppBar className={className} elevation={0} position="fixed">
             <Container>
                 <Grid container columnSpacing={8} padding={0} justifyContent="space-between" alignItems="center">
                     <Grid xs md>
                         <Link
-                            component={RouterLink}
-                            to="/"
+                            component={NextLink}
+                            href="/"
                             underline="none"
                             fontWeight={900}
                             fontSize="2rem"
@@ -66,8 +66,6 @@ export default styled(Navigation)`
     height: 80px;
     border-bottom: 1px solid #292929;
     justify-content: center;
-    backdrop-filter: blur(20px);
-    background-color: rgba(10, 25, 41, 0.7);
 
     .search {
         padding: ${({ theme }) => theme.spacing(1, 2)};

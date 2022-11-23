@@ -21,12 +21,11 @@ const Component: FC<Props> = ({ className, title }) => {
 
 export default styled(Component)`
     .cover {
-        background: url(${({ cover }) => cover});
+        background-image: url(${({ cover }) => cover});
         padding-top: 140%;
         background-size: cover;
-        background-position: 50%;
+        background-position: center;
         background-repeat: no-repeat;
-        background-size: 100% 100%;
         transition: background-size 0.2s;
         border-radius: 10px;
     }
@@ -37,9 +36,6 @@ export default styled(Component)`
 
     &:hover {
         cursor: pointer;
-        .cover {
-            background-size: 120% 120%;
-        }
 
         .title {
             color: ${({ theme }) => theme.palette.primary.main};

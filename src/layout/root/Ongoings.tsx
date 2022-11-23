@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { FC } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Typography } from '@mui/material';
-import { EntryCard } from '../../../components';
-import codeGeass from '../../../assets/code-geass.png';
+import { EntryCard } from '../../components/common';
+import codeGeass from '../../../public/images/code-geass.png';
 
 interface Props {
     className?: string;
