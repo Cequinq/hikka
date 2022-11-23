@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { FC } from 'react';
-import { NewsCard } from '../components';
+import { NewsCard } from '../../components/root';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import berserk from '../../../assets/berserk.png';
-import newsPic from '../../../assets/news-pic.png';
+import berserk from '../../../public/images/berserk.png';
+import newsPic from '../../../public/images/news-pic.png';
 
 interface Props {
     className?: string;

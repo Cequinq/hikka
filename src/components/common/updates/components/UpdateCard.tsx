@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Typography } from '@mui/material';
-import berserk from '../../../assets/berserk.png';
+import berserk from '../../../../../public/images/berserk.png';
 import styled from 'styled-components';
 import Grid from '@mui/material/Unstable_Grid2';
 
