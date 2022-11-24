@@ -12,6 +12,18 @@ declare namespace Hikka {
 
     type Status = 'airing' | 'finished' | 'not_yet';
 
+    type GenreType = 'genre' | 'explicit' | 'theme' | 'demographic';
+
+    type Genre = {
+        reference: string;
+        original: string;
+        name: string;
+        slug: string;
+        type: GenreType;
+        mal_id: number;
+        description: string | null;
+    };
+
     type Anime = {
         reference: string;
         title_en: string;

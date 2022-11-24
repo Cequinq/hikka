@@ -21,15 +21,16 @@ interface Params {
     rating?: string;
     source?: string;
     status?: string;
+    sort?: 'score:desc' | 'score:asc' | 'scored_by:desc' | 'scored_by:asc' | 'year:desc' | 'year:asc';
 }
 
 export default async function (params: Params) {
-    console.log(params);
-
     try {
         const index = client.index('anime');
 
-        const data = await index.search<Hikka.Anime>(params.query, {
+        return await index.search<Hikka.Anime>(params.query, {
+            offset: params.page ? (params.page - 1) * 20 : 0,
+            sort: params.sort ? [params.sort] : ['score:desc'],
             filter: [
                 params.year && params.year !== ''
                     ? `year >= ${params.year.split(',')[0]} AND year <= ${params.year.split(',')[1]}`
@@ -49,8 +50,6 @@ export default async function (params: Params) {
                 params.source && params.source !== '' ? params.source.split(',').map((f) => `source = ${f}`) : '',
             ],
         });
-
-        return data;
     } catch (e) {
         if (axios.isAxiosError(e)) {
             if (e.response?.data) {
