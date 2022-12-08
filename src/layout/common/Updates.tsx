@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FC } from 'react';
 import { Box, Typography } from '@mui/material';
-import { UpdateCard } from '../../root';
+import { UpdateCard } from '../../components/common';
 import Grid from '@mui/material/Unstable_Grid2';
 
 interface Props {

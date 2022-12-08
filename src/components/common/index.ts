@@ -1,4 +1,4 @@
 import EntryCard from './EntryCard';
-import Updates from './updates/Updates';
+import UpdateCard from './UpdateCard';
 
-export { EntryCard, Updates };
+export { EntryCard, UpdateCard };

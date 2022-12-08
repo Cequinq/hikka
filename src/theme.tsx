@@ -45,38 +45,54 @@ declare module '@mui/material/styles' {
 }
 
 const theme = createTheme({
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 900,
+            lg: 1200,
+            xl: 1300,
+        },
+    },
     typography: {
         fontFamily: "'Roboto', sans-serif, serif",
         h1: {
-            fontFamily: "'Montserrat', serif",
             fontWeight: 500,
             fontSize: '5rem', //80px
         },
         h2: {
-            fontFamily: "'Montserrat', serif",
             fontWeight: 700,
             fontSize: '2rem', //32px
         },
         h3: {
-            fontFamily: "'Montserrat', serif",
             fontWeight: 700,
             fontSize: '1.5rem', //24px
         },
         h4: {
-            fontFamily: "'Montserrat', serif",
             fontWeight: 600,
             fontSize: '1.5rem', //24px
         },
+        h5: {
+            fontWeight: 700,
+            fontSize: '1.25rem', //20px
+        },
         subtitle2: {
-            fontFamily: "'Montserrat', serif",
             fontWeight: 700,
             fontSize: '0.875rem', //14px
+        },
+        button: {
+            fontSize: '1rem', //16px
+            textTransform: 'none',
         },
     },
     palette: {
         mode: 'dark',
         primary: {
             main: '#FFF',
+        },
+        secondary: {
+            main: '#121212',
+            light: '#292929',
         },
         // secondary: {
         //     main: '#06032d',
@@ -92,10 +108,37 @@ const theme = createTheme({
             default: 'black',
         },
     },
+    shape: {
+        borderRadius: 10,
+    },
 });
 
 theme.components = {
     ...theme.components,
+    MuiButton: {
+        styleOverrides: {
+            text: {
+                padding: theme.spacing(0.75, 2),
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderColor: 'transparent',
+            },
+            textSecondary: {
+                color: theme.palette.text.secondary,
+            },
+            containedSecondary: {
+                color: theme.palette.text.primary,
+                backgroundColor: theme.palette.secondary.main,
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderColor: theme.palette.secondary.light,
+            },
+            outlinedSecondary: {
+                color: theme.palette.text.primary,
+                borderColor: theme.palette.secondary.light,
+            },
+        },
+    },
     MuiGrid2: {
         defaultProps: {
             disableEqualOverflow: false,
@@ -113,6 +156,14 @@ theme.components = {
         styleOverrides: {
             root: {
                 borderRadius: 6,
+            },
+            filled: {
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderColor: theme.palette.secondary.light,
+            },
+            outlined: {
+                borderColor: theme.palette.secondary.light,
             },
         },
     },

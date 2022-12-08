@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Autocomplete, Box, Chip, darken, lighten, Slider, TextField, Typography } from '@mui/material';
+import { Autocomplete, Button, Chip, darken, lighten, Slider, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useRouter } from 'next/router';
 
@@ -805,13 +805,24 @@ const Component: FC<Props> = ({ className }) => {
     const router = useRouter();
 
     const changeGenres = (event: React.SyntheticEvent, value: Hikka.Genre[]) => {
-        router.replace({
-            query: {
-                ...router.query,
-                page: 1,
-                genres: value.map((v) => v.slug).join(','),
-            },
-        });
+        if (value.length > 0) {
+            router.replace({
+                query: {
+                    ...router.query,
+                    page: 1,
+                    genres: value.map((v) => v.slug).join(','),
+                },
+            });
+        } else {
+            const { genres: empty, ...newQuery } = router.query;
+
+            router.replace({
+                query: {
+                    ...newQuery,
+                    page: 1,
+                },
+            });
+        }
     };
 
     const changeYears = (event: Event, newValue: number | number[]) => {
@@ -870,13 +881,23 @@ const Component: FC<Props> = ({ className }) => {
                 },
             });
         } else {
-            router.replace({
-                query: {
-                    ...router.query,
-                    page: 1,
-                    status: newSelected.join(','),
-                },
-            });
+            if (newSelected.length > 0) {
+                router.replace({
+                    query: {
+                        ...router.query,
+                        page: 1,
+                        status: newSelected.join(','),
+                    },
+                });
+            } else {
+                const { status: empty, ...newQuery } = router.query;
+                router.replace({
+                    query: {
+                        ...newQuery,
+                        page: 1,
+                    },
+                });
+            }
         }
     };
 
@@ -892,13 +913,23 @@ const Component: FC<Props> = ({ className }) => {
                 },
             });
         } else {
-            router.replace({
-                query: {
-                    ...router.query,
-                    page: 1,
-                    release: newSelected.join(','),
-                },
-            });
+            if (newSelected.length > 0) {
+                router.replace({
+                    query: {
+                        ...router.query,
+                        page: 1,
+                        release: newSelected.join(','),
+                    },
+                });
+            } else {
+                const { release: empty, ...newQuery } = router.query;
+                router.replace({
+                    query: {
+                        ...newQuery,
+                        page: 1,
+                    },
+                });
+            }
         }
     };
 
@@ -914,13 +945,23 @@ const Component: FC<Props> = ({ className }) => {
                 },
             });
         } else {
-            router.replace({
-                query: {
-                    ...router.query,
-                    page: 1,
-                    season: newSelected.join(','),
-                },
-            });
+            if (newSelected.length > 0) {
+                router.replace({
+                    query: {
+                        ...router.query,
+                        page: 1,
+                        season: newSelected.join(','),
+                    },
+                });
+            } else {
+                const { season: empty, ...newQuery } = router.query;
+                router.replace({
+                    query: {
+                        ...newQuery,
+                        page: 1,
+                    },
+                });
+            }
         }
     };
 
@@ -936,13 +977,23 @@ const Component: FC<Props> = ({ className }) => {
                 },
             });
         } else {
-            router.replace({
-                query: {
-                    ...router.query,
-                    page: 1,
-                    rating: newSelected.join(','),
-                },
-            });
+            if (newSelected.length > 0) {
+                router.replace({
+                    query: {
+                        ...router.query,
+                        page: 1,
+                        rating: newSelected.join(','),
+                    },
+                });
+            } else {
+                const { rating: empty, ...newQuery } = router.query;
+                router.replace({
+                    query: {
+                        ...newQuery,
+                        page: 1,
+                    },
+                });
+            }
         }
     };
 
@@ -957,6 +1008,31 @@ const Component: FC<Props> = ({ className }) => {
             default:
                 return 'Загальні';
         }
+    };
+
+    const removeFilters = () => {
+        const {
+            page,
+            rating,
+            genres: emptyGenres,
+            season,
+            release,
+            status,
+            year,
+            emptyScore,
+            query,
+            ...etc
+        } = router.query;
+
+        router.replace({
+            query: etc,
+        });
+    };
+
+    const isRemoveFiltersDisabled = () => {
+        const { page, ...etc } = router.query;
+
+        return Object.keys(etc).length <= 0;
     };
 
     useEffect(() => {
@@ -986,10 +1062,14 @@ const Component: FC<Props> = ({ className }) => {
 
         if (router.query?.year) {
             setYears((router.query.year as string).split(',').map((y) => parseInt(y)));
+        } else {
+            setYears([1980, 2022]);
         }
 
         if (router.query?.score) {
             setScore((router.query.score as string).split(',').map((y) => parseInt(y)));
+        } else {
+            setScore([1, 10]);
         }
 
         if (router.query?.genres) {
@@ -1002,137 +1082,145 @@ const Component: FC<Props> = ({ className }) => {
     }, [router.query]);
 
     return (
-        <Box className={className} position="sticky" top="60px" height="100vh">
-            <Grid container spacing={3} padding={0} py={3} className="filters">
-                <Grid xs={12} sm={12} md={12}>
-                    <Typography color="textSecondary" mb={1}>
-                        Жанр:
-                    </Typography>
-                    <Autocomplete
-                        fullWidth
-                        multiple
-                        value={selectedGenres}
-                        onChange={changeGenres}
-                        options={genres}
-                        groupBy={(option) => option.type}
-                        getOptionLabel={(option) => option.name}
-                        renderGroup={(params) => (
-                            <li>
-                                <GroupHeader>{getGroupTitle(params.group as Hikka.GenreType)}</GroupHeader>
-                                <GroupItems>{params.children}</GroupItems>
-                            </li>
-                        )}
-                        renderInput={(params) => <TextField placeholder="Пошук жанрів" {...params} />}
-                    />
-                </Grid>
-                <Grid xs={12} sm={12} md={12}>
-                    <Typography color="textSecondary" mb={1}>
-                        Статус:
-                    </Typography>
-                    <Grid container padding={0} spacing={1}>
-                        {statuses.map((s) => (
-                            <Grid xs="auto" sm="auto" md="auto" key={s.slug}>
-                                <Chip
-                                    onClick={() => switchStatus(s)}
-                                    variant={selectedStatuses.some((ss) => ss === s.slug) ? 'filled' : 'outlined'}
-                                    label={s.title}
-                                />
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Grid>
-                <Grid xs={12} sm={12} md={12}>
-                    <Typography color="textSecondary" mb={1}>
-                        Тип:
-                    </Typography>
-                    <Grid container padding={0} spacing={1}>
-                        {types.map((t) => (
-                            <Grid xs="auto" sm="auto" md="auto" key={t.slug}>
-                                <Chip
-                                    onClick={() => switchType(t)}
-                                    variant={selectedTypes.some((st) => st === t.slug) ? 'filled' : 'outlined'}
-                                    label={t.title}
-                                />
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Grid>
-                <Grid xs={12} sm={12} md={12}>
-                    <Typography color="textSecondary" mb={1}>
-                        Сезон:
-                    </Typography>
-                    <Grid container padding={0} spacing={1}>
-                        {seasons.map((s) => (
-                            <Grid xs="auto" sm="auto" md="auto" key={s.slug}>
-                                <Chip
-                                    onClick={() => switchSeason(s)}
-                                    variant={selectedSeasons.some((ss) => ss === s.slug) ? 'filled' : 'outlined'}
-                                    label={s.title}
-                                />
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Grid>
-                <Grid xs={12} sm={12} md={12}>
-                    <Typography color="textSecondary" mb={1}>
-                        Рейтинг:
-                    </Typography>
-                    <Grid container padding={0} spacing={1}>
-                        {ageRatings.map((r) => (
-                            <Grid xs="auto" sm="auto" md="auto" key={r.slug}>
-                                <Chip
-                                    onClick={() => switchAgeRatings(r)}
-                                    variant={selectedAgeRatings.some((sr) => sr === r.slug) ? 'filled' : 'outlined'}
-                                    label={r.title}
-                                />
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Grid>
-                <Grid xs={12} sm={12} md={12}>
-                    <Typography color="textSecondary" mb={1}>
-                        Рік:
-                    </Typography>
-                    <Slider
-                        className="slider"
-                        min={1980}
-                        max={2022}
-                        onChange={changeYears}
-                        onChangeCommitted={confirmYears}
-                        value={years}
-                        step={1}
-                        marks
-                        disableSwap
-                        valueLabelDisplay="auto"
-                    />
-                </Grid>
-                <Grid xs={12} sm={12} md={12}>
-                    <Typography color="textSecondary" mb={1}>
-                        Оцінка:
-                    </Typography>
-                    <Slider
-                        className="slider"
-                        min={1}
-                        max={10}
-                        onChange={changeScore}
-                        onChangeCommitted={confirmScore}
-                        value={score}
-                        step={1}
-                        marks
-                        disableSwap
-                        valueLabelDisplay="auto"
-                    />
+        <Grid container className={className} spacing={3} padding={0} py={3} marginTop={3}>
+            <Grid xs={12} sm={12} md={12}>
+                <Typography color="textSecondary" mb={1}>
+                    Жанр:
+                </Typography>
+                <Autocomplete
+                    fullWidth
+                    multiple
+                    value={selectedGenres}
+                    onChange={changeGenres}
+                    options={genres}
+                    groupBy={(option) => option.type}
+                    getOptionLabel={(option) => option.name}
+                    renderGroup={(params) => (
+                        <li>
+                            <GroupHeader>{getGroupTitle(params.group as Hikka.GenreType)}</GroupHeader>
+                            <GroupItems>{params.children}</GroupItems>
+                        </li>
+                    )}
+                    renderInput={(params) => <TextField placeholder="Пошук жанрів" {...params} />}
+                />
+            </Grid>
+            <Grid xs={12} sm={12} md={12}>
+                <Typography color="textSecondary" mb={1}>
+                    Статус:
+                </Typography>
+                <Grid container padding={0} spacing={1}>
+                    {statuses.map((s) => (
+                        <Grid xs="auto" sm="auto" md="auto" key={s.slug}>
+                            <Chip
+                                onClick={() => switchStatus(s)}
+                                variant={selectedStatuses.some((ss) => ss === s.slug) ? 'filled' : 'outlined'}
+                                label={s.title}
+                            />
+                        </Grid>
+                    ))}
                 </Grid>
             </Grid>
-        </Box>
+            <Grid xs={12} sm={12} md={12}>
+                <Typography color="textSecondary" mb={1}>
+                    Тип:
+                </Typography>
+                <Grid container padding={0} spacing={1}>
+                    {types.map((t) => (
+                        <Grid xs="auto" sm="auto" md="auto" key={t.slug}>
+                            <Chip
+                                onClick={() => switchType(t)}
+                                variant={selectedTypes.some((st) => st === t.slug) ? 'filled' : 'outlined'}
+                                label={t.title}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            </Grid>
+            <Grid xs={12} sm={12} md={12}>
+                <Typography color="textSecondary" mb={1}>
+                    Сезон:
+                </Typography>
+                <Grid container padding={0} spacing={1}>
+                    {seasons.map((s) => (
+                        <Grid xs="auto" sm="auto" md="auto" key={s.slug}>
+                            <Chip
+                                onClick={() => switchSeason(s)}
+                                variant={selectedSeasons.some((ss) => ss === s.slug) ? 'filled' : 'outlined'}
+                                label={s.title}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            </Grid>
+            <Grid xs={12} sm={12} md={12}>
+                <Typography color="textSecondary" mb={1}>
+                    Рейтинг:
+                </Typography>
+                <Grid container padding={0} spacing={1}>
+                    {ageRatings.map((r) => (
+                        <Grid xs="auto" sm="auto" md="auto" key={r.slug}>
+                            <Chip
+                                onClick={() => switchAgeRatings(r)}
+                                variant={selectedAgeRatings.some((sr) => sr === r.slug) ? 'filled' : 'outlined'}
+                                label={r.title}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            </Grid>
+            <Grid xs={12} sm={12} md={12}>
+                <Typography color="textSecondary" mb={1}>
+                    Рік:
+                </Typography>
+                <Slider
+                    className="slider"
+                    min={1980}
+                    max={2022}
+                    onChange={changeYears}
+                    onChangeCommitted={confirmYears}
+                    value={years}
+                    step={1}
+                    marks
+                    disableSwap
+                    valueLabelDisplay="auto"
+                />
+            </Grid>
+            <Grid xs={12} sm={12} md={12}>
+                <Typography color="textSecondary" mb={1}>
+                    Оцінка:
+                </Typography>
+                <Slider
+                    className="slider"
+                    min={1}
+                    max={10}
+                    onChange={changeScore}
+                    onChangeCommitted={confirmScore}
+                    value={score}
+                    step={1}
+                    marks
+                    disableSwap
+                    valueLabelDisplay="auto"
+                />
+            </Grid>
+            <Grid xs={12} sm={12} md={12}>
+                <Button
+                    color="error"
+                    size="large"
+                    disabled={isRemoveFiltersDisabled()}
+                    onClick={removeFilters}
+                    fullWidth
+                    variant="outlined"
+                >
+                    Очистити
+                </Button>
+            </Grid>
+        </Grid>
     );
 };
 
 export default styled(Component)`
-    .filters {
-        max-height: calc(100% - 80px);
-        overflow-y: auto;
-    }
+    max-height: calc(100% - 80px);
+    overflow-y: auto;
 
     .slider {
         margin-left: 16px;

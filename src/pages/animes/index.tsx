@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Container, Divider } from '@mui/material';
+import { Box, Container, Divider } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Filters, List } from '../../layout/animes';
+import { List } from '../../layout/animes';
+import { Filters } from '../../layout/common';
 
 interface Props {
     className?: string;
@@ -19,7 +20,9 @@ const Component: FC<Props> = ({ className }) => {
                     <Divider orientation="vertical" />
                 </Grid>
                 <Grid xs={16} md>
-                    <Filters />
+                    <Box position="sticky" top="60px" height="100vh">
+                        <Filters />
+                    </Box>
                 </Grid>
             </Grid>
         </Container>

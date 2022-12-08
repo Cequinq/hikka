@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import Grid from '@mui/material/Unstable_Grid2';
-import { AppBar, Container, Link } from '@mui/material';
+import { AppBar, Avatar, Container, Link } from '@mui/material';
 import NextLink from 'next/link';
-import pp from '../../../public/images/temp-pp.png';
 
 interface Props {
     className?: string;
@@ -12,9 +11,9 @@ interface Props {
 const Navigation: FC<Props> = ({ className }) => {
     return (
         <AppBar className={className} elevation={0} position="fixed">
-            <Container>
-                <Grid container columnSpacing={8} padding={0} justifyContent="space-between" alignItems="center">
-                    <Grid xs md>
+            <Container maxWidth="xl">
+                <Grid container columnSpacing={12} padding={0} justifyContent="space-between" alignItems="center">
+                    <Grid xs sm md>
                         <Link
                             component={NextLink}
                             href="/"
@@ -26,35 +25,15 @@ const Navigation: FC<Props> = ({ className }) => {
                             hikka.
                         </Link>
                     </Grid>
-                    <Grid xs md container spacing={3} alignItems="center">
+                    <Grid xs="auto" sm="auto" md="auto" container spacing={3} alignItems="center">
                         <Grid xs md>
-                            <Link color="textSecondary" underline="none">
-                                Головне
-                            </Link>
-                        </Grid>
-                        <Grid xs md>
-                            <Link color="textSecondary" underline="none">
+                            <Link component={NextLink} href="/animes" color="textSecondary" underline="none">
                                 Аніме
                             </Link>
                         </Grid>
-                        <Grid xs md>
-                            <Link color="textSecondary" underline="none">
-                                Манга
-                            </Link>
-                        </Grid>
-                        <Grid xs md>
-                            <Link color="textSecondary" underline="none">
-                                Ранобе
-                            </Link>
-                        </Grid>
-                        <Grid xs md>
-                            <Link color="textSecondary" underline="none">
-                                Вовасін
-                            </Link>
-                        </Grid>
                     </Grid>
-                    <Grid xs="auto" md="auto">
-                        <img src={pp} alt="Profile Picture" />
+                    <Grid xs="auto" sm="auto" md="auto">
+                        <Avatar src="/images/temp-pp.png" variant="rounded" alt="Profile Picture" />
                     </Grid>
                 </Grid>
             </Container>
