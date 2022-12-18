@@ -1,14 +1,18 @@
-import React, { FC } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import Grid from '@mui/material/Unstable_Grid2';
-import { AppBar, Avatar, Container, Link } from '@mui/material';
+import { AppBar, Avatar, Container, Link, Typography } from '@mui/material';
 import NextLink from 'next/link';
+// import pp from '../../../public/images/temp-pp.png';
+import Auth from './Auth';
 
 interface Props {
     className?: string;
 }
 
-const Navigation: FC<Props> = ({ className }) => {
+const Component: FC<Props> = ({ className }) => {
+    const [auth, setAuth] = useState<boolean>(false);
+
     return (
         <AppBar className={className} elevation={0} position="fixed">
             <Container maxWidth="xl">
@@ -34,14 +38,18 @@ const Navigation: FC<Props> = ({ className }) => {
                     </Grid>
                     <Grid xs="auto" sm="auto" md="auto">
                         <Avatar src="/images/temp-pp.png" variant="rounded" alt="Profile Picture" />
+                    <Grid xs="auto" md="auto">
+                        {/*<img src={pp} alt="Profile Picture" />*/}
+                        <Typography onClick={() => setAuth(true)}>Вхід</Typography>
                     </Grid>
                 </Grid>
             </Container>
+            <Auth open={auth} setOpen={setAuth} />
         </AppBar>
     );
 };
 
-export default styled(Navigation)`
+export default styled(Component)`
     height: 80px;
     border-bottom: 1px solid #292929;
     justify-content: center;

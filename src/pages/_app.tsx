@@ -14,8 +14,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import '@fontsource/montserrat/900.css';
-import '@fontsource/montserrat/600.css';
 import '@fontsource/montserrat/700.css';
+import '@fontsource/montserrat/600.css';
+import '@fontsource/montserrat/500.css';
 import { NextPage } from 'next';
 
 axios.defaults.baseURL = 'https://api.hikka.io';
