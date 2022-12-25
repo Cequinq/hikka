@@ -115,6 +115,20 @@ const theme = createTheme({
 
 theme.components = {
     ...theme.components,
+    MuiPaper: {
+        styleOverrides: {
+            root: {
+                backgroundImage: 'none',
+            },
+        },
+    },
+    MuiBackdrop: {
+        styleOverrides: {
+            root: {
+                backdropFilter: 'blur(12px)',
+            },
+        },
+    },
     MuiButton: {
         styleOverrides: {
             text: {

@@ -38,6 +38,7 @@ const Component: FC<Props> = ({ className }) => {
                     </Grid>
                     <Grid xs="auto" sm="auto" md="auto">
                         <Avatar src="/images/temp-pp.png" variant="rounded" alt="Profile Picture" />
+                    </Grid>
                     <Grid xs="auto" md="auto">
                         {/*<img src={pp} alt="Profile Picture" />*/}
                         <Typography onClick={() => setAuth(true)}>Вхід</Typography>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Container, Divider } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { News, Ongoings } from '../layout/root';
-import { Updates } from '../components/common';
+import { Updates } from '../layout/common';
 
 interface Props {
     className?: string;

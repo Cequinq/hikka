@@ -1,8 +1,7 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import styled from 'styled-components';
-import { Box, Button, Card, CardContent, Dialog, TextField, Typography } from '@mui/material';
+import { Box, Button, Dialog, Link, TextField, Typography } from '@mui/material';
 // import { useForm } from 'react-hook-form';
-import authLogo from './../../../public/images/auth-logo.png';
 import Image from 'next/image';
 import Grid from '@mui/material/Unstable_Grid2';
 
@@ -24,53 +23,49 @@ const Component: FC<Props> = ({ className, open, setOpen }) => {
         <Dialog
             open={open}
             className={className}
+            PaperProps={{ className: 'container' }}
             fullWidth
             maxWidth="sm"
             onClose={() => setOpen(false)}
-            PaperComponent={Box}
-            sx={{
-                backdropFilter: 'blur(12px)',
-            }}
         >
-            <Card
-                sx={{
-                    backgroundColor: 'black',
-                    borderRadius: 1,
-                    background: 'black',
-                }}
-            >
-                <CardContent>
-                    <Grid container spacing={4} justifyContent="space-between">
-                        <Grid xs="auto" md="auto">
-                            <Image src={authLogo} alt="Login Image" />
-                        </Grid>
-                        <Grid xs={12} md className="test">
-                            <Typography
-                                mt={12}
-                                fontWeight={600}
-                                fontSize="2.5rem"
-                                fontFamily="Montserrat"
-                                alignSelf="center"
-                            >
-                                Реєстрація
-                            </Typography>
-                            <TextField sx={{ width: 280 }} />
-                            <TextField sx={{ width: 280 }} />
-                            <Button>Реєстрація</Button>
-                            <Typography alignSelf="start">Є акаунт? Війти</Typography>
-                            {/*<Typography onClick={() => setOpen(false)}>close</Typography>*/}
-                        </Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
+            <Grid container p={0} height="100%" justifyContent="space-between">
+                <Grid xs="auto" md="auto">
+                    <Image src="/images/auth.png" className="cover" width={220} height={600} alt="Login Image" />
+                </Grid>
+                <Grid xs={12} md px={6} display="flex" flexDirection="column" justifyContent="center">
+                    <Typography mb={4} fontWeight={600} fontSize="2.5rem" fontFamily="Montserrat" alignSelf="center">
+                        Увійти
+                    </Typography>
+                    <Box my={0.5}>
+                        <TextField fullWidth placeholder="Логін" />
+                    </Box>
+                    <Box my={0.5}>
+                        <TextField fullWidth placeholder="Пароль" />
+                    </Box>
+                    <Box my={0.5}>
+                        <Button fullWidth variant="contained" size="large">
+                            Реєстрація
+                        </Button>
+                    </Box>
+                    <Typography alignSelf="start" mt={4}>
+                        Не маєте профілю? <Link href="#">Зареєструйтеся</Link>
+                    </Typography>
+                </Grid>
+            </Grid>
         </Dialog>
     );
 };
 
 export default styled(Component)`
-    .test {
-        display: flex;
-        flex-flow: column;
-        align-items: center;
+    .cover {
+        object-fit: cover;
+        width: 220px;
+        height: 100%;
+    }
+
+    .container {
+        height: 600px;
+        overflow: hidden;
+        background-color: ${({ theme }) => theme.palette.background.default};
     }
 `;
